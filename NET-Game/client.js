@@ -1,6 +1,8 @@
 const { connect } = require('http2')
 var net = require('net')
-var readline = require('readline-sync')
+var readline = require('readline')
+
+
 
 var HOST = '127.0.0.1'
 var PORT = 6969
@@ -12,7 +14,13 @@ client.connect(PORT, HOST, function() {
 });
 //var keydata = window.prompt(" Enter Item : ");
 //let data = prompt("Enter Item : ");
-client.on('data', function(data) {
+var rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+client.on('r1', function(data) {
+    
+    
     //const readline = require('readline');
     //const data = readline.createInterface({
     //   input : process.stdin,
@@ -29,10 +37,11 @@ client.on('close', function() {
 })
 
 function sendline() {
-    var line = readline.question('DataSent: ')
+    var line = r1.question('DataSent: ')
     if(line == 'GAMEOVER!') {
         client.end()
     }else {
         client.write(line)
     }
+    r1.close();
 }
